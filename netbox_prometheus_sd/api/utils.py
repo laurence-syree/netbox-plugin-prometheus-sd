@@ -141,6 +141,7 @@ def extract_prometheus_sd_config(obj, labels):
 
 def extract_parent(obj, labels: LabelDict):
     labels['parent'] = obj.parent.name
+    labels['status'] = obj.parent.status
     extract_primary_ip(obj.parent, labels)
     extract_oob_ip(obj.parent, labels)
     extract_tenant(obj.parent, labels)
