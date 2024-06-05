@@ -17,16 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Netbox git tags
         netbox-version:
-          - v3.2.2
           - v3.3.2
           - v3.4.4
           - v3.5.3
           - v3.6.7
-          - v3.7.0
-          - master
-
+          - v3.7.8
+          - v4.0.2
+          - latest
     steps:
       - uses: actions/checkout@v4
 
@@ -56,7 +54,11 @@ jobs:
       - name: Build test images
         run: |
           poetry run invoke build
+        env:
+          NETBOX_VER: ${{ matrix.netbox-version }}
 
       - name: Run tests
         run: |
           poetry run invoke tests
+        env:
+          NETBOX_VER: ${{ matrix.netbox-version }}
